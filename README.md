@@ -1,1 +1,1 @@
-# minn
+# mint
