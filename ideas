@@ -1,0 +1,83 @@
+/*
+ * Do some math!
+ * Grammar:
+ * EXPR: TERM ( ( PLUS | MINUS ) TERM ) *
+ * TERM: FACTOR ( ( MUL | DIV ) ) TERM ) *
+ * FACTOR: INTEGER (will eventually include floats, doubles, etc.)
+ */
+
+/*
+ * Some random ideas for a language:
+ * LISP-y in syntax and flow, but with a focus on compound data types and numeric computing maybe?
+ *
+ * Not sure if the underlying data structure should be anything other than integers
+ * Lists are useful as language constructs but are often slower than arrays
+ * maps are useful but end up being slower than arrays when the map is small
+ *
+ * what if the guts of the language are really a database?
+ *
+ * option to "break out" of prefix notation and use infix for when expressions are easier to write that way
+ *
+ * simple and terse: t == true, f == false, nil == null list
+ *
+ * truthy and falsey evaluations, e.g. nil evaluates to false maybe?
+ *
+ * simplicity over complexity by default (NO operator overloading, NO polymorphism, NO OOP)
+ *
+ * loop construct kind of like in go, but:
+ * (loop () )  <- goes on forever, some other construct will break the loop "while (true)"
+ * (loop ( () ) ) <- check condition specified; works like while loop "while (a == b)"
+ * (loop (
+ * 			()
+ * 			()
+ * 			()
+ * 			(do-stuff ( a b c ) ) ) <- three lists specified; "for (int i = 0; i < a_value; i++)"
+ * 		first is taken to be the initialization
+ * 		second is taken to be the check condition
+ * 		third is taken to be the increment operation
+ *
+ * ( var x ) <- declares x as an identifier
+ *
+ * (var ( x 57 ) <- declares x as an identifier bound to 57
+ *
+ * (int ( x 57 ) <- declares x as an int whose value is 57
+ *
+ * (int x ( 3 4 66 14 ) ) <- declares x as a list of integers
+ *
+ * (int x[] (3, 4, 66, 14)) <- declares x as an array of integers
+ *
+ * (macro (do-stuff x y z))
+ *
+ * (fn (do-other-stuff a b c))
+ *
+ * ( do-other-stuff ( a b c )
+ *   (* 4 ( infix ( a ^ b + c ) ) ) )
+ *
+ * alias identifiers?
+ * (alias ( really-long-identifier-name-goes-here tim ) )
+ *
+ * C is a good "portable assembler" to target
+ * C++ is insane, don't even focus on it
+ * Give a fast interpreter in C and eventually target LLVM IR maybe?
+ *
+ * Since the language is simply a markup for logic, it can do anything.
+ * You can write a build system in it
+ * Use it for HTML markup (and also write a k -> HTML transpiler in k)
+ * You can write a database in it
+ * You can write a graphics subsystem in it
+ * Given the right primitives, you can interact with hardware
+ * If the thing you're working on isn't a database, you're just not trying hard enough
+ *
+ */
+
+ /* What if it wasn't LISP-y?
+ *
+ * Probably like mathematical notation but with go-ish touches
+ *
+ * fn f(a, b, c) := a + b
+ * 		if a == b
+ * 			do_stuff(a)
+ * 			do_other_stuff(c)
+ * 		else
+ *
+ */

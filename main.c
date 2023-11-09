@@ -1,30 +1,23 @@
-/* A simple PEMDAS interpreter for use as an interactive calculator.
+#include "expr.c"
+#include "io.c"
+#include "shared.c"
+#include "lex.c"
 
-   Lexes tokens into a linked list which are then parsed.*/
+int main(void) {
+	char input[INPUT_SIZE_LIMIT];
+	char *current_token = input;
+	printf("Welcome to k.  So simple it doesn't even do variables yet.\n");
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include "lex.h"
-
-int main() {
-	char in[] = "55 * -4.6 * (-3 / 2.3) / 2 ^-2.2";
-	node *cur = lex(in);
-
-	printf("input string: %s\n", in);
-
-	printf("lexed tokens: \n");
-	
-	while(cur->next != NULL) {
-		printf(
-			"token: %s\ttype: %s\tkey: %d\tpriority: %d\n",
-			cur->token,
-			symbol_as_string(cur->symbol),
-			cur->key,
-			cur->priority);
-			
-		cur = cur->next;
+	for(;;) {
+		printf("> ");
+		current_token = get_line(input);
+		node *head = lex(input);
+		if (head->token_type == EXIT) { break; }
+		float result = expr(&head);
+		printf("%.6f\n", result);
 	}
+
+	printf("bye\n");
 
 	return 0;
 }
