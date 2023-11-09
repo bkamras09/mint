@@ -84,12 +84,12 @@ float expr(node **n) {
 }
 
 float exponent(node **n) {
-    float base = factor(n);  // Get the base
+    float base = factor(n);
 
     while (*n != NULL && (*n)->token_type == EXP) {
-        *n = (*n)->next;  // Move to the exponent
-        float exp = exponent(n);  // Recursively call exponent for right-associativity
-        base = powf(base, exp);  // Use the powf function to calculate the power
+        *n = (*n)->next;
+        float exp = exponent(n);
+        base = powf(base, exp);
     }
 
     return base;

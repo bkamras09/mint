@@ -1,5 +1,5 @@
-#ifndef _SHARED_HEADER
-#define _SHARED_HEADER
+#ifndef _EXPRESSION_HEADER
+#define _EXPRESSION_HEADER
 #include "shared.h"
 
 struct AstNode {
