@@ -6,26 +6,38 @@
 #define INPUT_SIZE_LIMIT 32768
 
 typedef enum {
+	AND,
+	OR,
+	COND,
+	LOOP,
+	LEQ,
+	EQ,
+	GEQ,
+	
+	MOD,
 	INT,
 	DIGIT,
 	ALPHA,
+	
 	PLUS,
 	MINUS,
 	MUL,
 	DIV,
 	EXP,
+	
 	LP,
 	RP,
 	LB,
 	RB,
+	
 	END_OF_FILE,
 	ERROR,
-	TERM_OPERATOR,
-	FACTOR_OPERATOR,
 	UNINITIALIZED,
 	EXIT,
 	NUMBER,
-	IDENTIFIER} ETokenType;
+	IDENTIFIER } ETokenType;
+
+
 
 typedef struct node {
 	char token[TOKEN_SIZE_LIMIT];

@@ -6,7 +6,7 @@
 int main(void) {
 	char input[INPUT_SIZE_LIMIT];
 	char *current_token = input;
-	printf("Welcome to k.  So simple it doesn't even do variables yet.\n");
+	//printf("Welcome to k.  So simple it doesn't even do variables yet.\n");
 
 	for(;;) {
 		printf("> ");

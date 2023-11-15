@@ -31,6 +31,10 @@ ETokenType get_ETokenType(char p) {
 		case '^':  return EXP;
 		case '(':  return LP;
 		case ')':  return RP;
+		case '&':  return AND;
+		case '{':  return LB;
+		case '}':  return RB;
+		case '%':  return MOD;
 		case '\0': return END_OF_FILE;
 		default:   return ERROR;
 	}

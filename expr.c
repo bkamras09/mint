@@ -58,12 +58,12 @@ float factor(node **n) {
 }
 
 float term(node **n) {
-    float result = exponent(n);
+    float result = exponent(n);  // Handles exponentiation
 
     while (*n != NULL && ((*n)->token_type == MUL || (*n)->token_type == DIV)) {
         ETokenType op = (*n)->token_type;
         *n = (*n)->next;
-        float rhs = factor(n);
+        float rhs = exponent(n);  // Should call exponent, not factor
         if (op == MUL) { result *= rhs; }
         else { result /= rhs; }
     }
@@ -71,12 +71,12 @@ float term(node **n) {
 }
 
 float expr(node **n) {
-    float result = term(n);
+    float result = term(n);  // Handles multiplication and division
 
     while (*n != NULL && ((*n)->token_type == PLUS || (*n)->token_type == MINUS)) {
         ETokenType op = (*n)->token_type;
         *n = (*n)->next;
-        float rhs = term(n);
+        float rhs = term(n);  // Should call term, not exponent
         if (op == PLUS) { result += rhs; }
         else { result -= rhs; }
     }
@@ -84,13 +84,14 @@ float expr(node **n) {
 }
 
 float exponent(node **n) {
-    float base = factor(n);
+    float base = factor(n);  // Handles the base of the exponentiation
 
     while (*n != NULL && (*n)->token_type == EXP) {
         *n = (*n)->next;
-        float exp = exponent(n);
+        float exp = factor(n);  // Handles the exponent, not exponent(n)
         base = powf(base, exp);
     }
 
     return base;
 }
+

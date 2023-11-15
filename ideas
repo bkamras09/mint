@@ -6,6 +6,32 @@
  * FACTOR: INTEGER (will eventually include floats, doubles, etc.)
  */
 
+/* very small, reserved keywords should just be:
+    control flow:
+        LOOP
+        COND
+        BREAK
+        INFIX
+    functions and macros:
+        FN
+        MACRO
+    variable declaration:
+        VAR
+        MAP
+        STRING
+        LIST
+        ARRAY
+        STRUCT
+        UNION
+    truth:
+        T
+        F
+        NIL
+    concurrency:
+        THREAD
+        MSG
+*/
+
 /*
  * Some random ideas for a language:
  * LISP-y in syntax and flow, but with a focus on compound data types and numeric computing maybe?
@@ -81,3 +107,35 @@
  * 		else
  *
  */
+
+ /*
+ >aren't most parsers just custom RDPs with backtracking?
+Yes the are. I'm not suggesting to do opereator prec parsing instead of RDP but rather do both. Do all the parsing except for the expression parsing part with the RDP and do the expression parsing part with the operator prec parser. The original C compiler did this and gcc is also doing this.
+
+It has only advantages really. It's faster: parsing an expression with RDP is O(n * m) in the worst case where n is the number of tokens and m the number of precedence level whereas the oper prec parser is always O(n). That's because the RDP have to traverse the recursive precedence functions all the time to find the operator or term.
+The other big advantage is that once it is written, all you need to do when you want to add new operators is update the operator precedece (and associativity) table. The parser itself doesn't change, except maybe in the edge case where you didn't account for the ternary operator and want to add it.
+
+It has several variations and serveral names though: shunting-yard algorithm, Pratt parsing, precedence climbing but I prefer to call it operator precedence parser because it's more neutral and the variation I do is none of the ones before. All of them are equivalent but they are laid out differently and more ore less easy to extend. You should look at the shunting-yard one, the other ones are messy.
+*/
+
+ /*
+  * Yes exactly, but if you change the table when parsing because the user declared a new infix operator for example, you might also need to modify the lexer. I'm doing just this and my idea is to make the operator precedence parser have its own lexer which only lex operators and parentheses, and have the lexer be a DFA-simulating NFA where the lexer is a single static function that take as input the parser sate and the NFA "program" which is a mini lexer bytecode program to be interpreted. Then when the user declare a new operator, re "compile" the NFA program. This is fast because these kind of NFAs are not costly to generate and because it only lexes operator tokens.
+  */
+ /*
+  *
+
+A system can only be considered to be Turing complete if it can do anything a universal Turing machine can. Since the universal Turing machine is said to be able to solve any computable function given time, Turing complete systems can, by extension, also do so.
+
+To check to see if something is Turing complete, see if you can implement a Turing machine inside it. In other words, check to see if it can simulate the following:
+
+    The ability to read and write "variables" (or arbitrary data): Pretty much self explanatory.
+
+    The ability to simulate moving the read/write head: It isn't enough to just be able to retrieve and store variables. It must also be possible to simulate the ability to move the tape's head in order to reference other variables. This can often be simulated within programming languages with the usage of array data structures (or equivalent) or, in the case of certain languages such as machine code, the ability to reference other variables through the use of "pointers" (or equivalent).
+    The ability to simulate a finite state machine: Although not mentioned often, Turing machines are actually a variation of the finite state machines often used within AI development. Alan Turing said the purpose of the states is to simulate a person's "various modes of problem solving".
+    A "halt" state: Although it's often mentioned a set of rules must be able to repeat itself in order to count as being Turing complete, that isn't really a good criteria since the formal definition of what an algorithm is state algorithms must always eventually conclude. If they can't conclude in some way, either it isn't Turing complete, or said algorithm isn't a computable function. Turing complete systems that technically can't conclude due to the way they work (like game consoles, for example) get around this limitation by being able to "simulate" a halting state in some fashion. Not to be confused with the "halting problem", an undecidable function that proves it's impossible to build a system that could detect with 100% reliability if a given input will cause another system to not conclude.
+
+These are the true minimum requirements for a system to be considered Turing complete. Nothing more, nothing less. If it can't simulate any of these in some fashion, it's not Turing complete. The methods other people proposed are only means to the end as there's several Turing complete systems that doesn't have those features.
+
+Note that there's no known way to actually build a true Turing complete system. This is because there's no known way to genuinely simulate the limitlessness of the Turing machine's tape within physical space.
+*/
+

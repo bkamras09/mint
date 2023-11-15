@@ -85,10 +85,25 @@ node *lex (char *in) {
 		ETokenType t = get_ETokenType((*in));
 
 		switch(t){
-			case PLUS: case MINUS: case DIV: case MUL: case EXP:
-			case RP:   case LP:    case LB:  case RB:
+			case PLUS: case DIV: case MUL: case EXP:
+			case RP:   case LP:  case LB:  case RB: case EQ:
 				update_node(cur, n, in, t);
 				in++; 
+				break;
+			case MINUS:
+				in--;
+				if (*in == ')' || isdigit(*in)) {
+					in++;
+					update_node(cur, n, in, t);
+				} else {
+					in++;
+					cur->token[0] = *in;
+					in++;
+					for (i = 1; isdigit(*in) || *in == '.'; i++) cur->token[i] = *in++;
+					cur->token[i] = '\0';
+					cur->token_type = DIGIT;
+				}
+				in++;
 				break;
 			case DIGIT:
 				for (i = 0; isdigit(*in) || *in == '.'; i++) cur->token[i] = *in++;
