@@ -22,7 +22,7 @@ float exponent(node **n);
 char *get_digits(char *p);
 char *get_alphas(char *p);
 bool eat_token(char p, ETokenType t);
-char *get_next_token(char *p);
+char *get_next_token(char p[]);
 char *type_as_string(ETokenType t);
 AstNode *get_next_AstNode(char *p);
 

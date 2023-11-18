@@ -13,7 +13,8 @@ typedef enum {
 	LEQ,
 	EQ,
 	GEQ,
-	
+
+
 	MOD,
 	INT,
 	DIGIT,
@@ -29,6 +30,9 @@ typedef enum {
 	RP,
 	LB,
 	RB,
+
+	FN,
+	MACRO,
 	
 	END_OF_FILE,
 	ERROR,
@@ -36,8 +40,6 @@ typedef enum {
 	EXIT,
 	NUMBER,
 	IDENTIFIER } ETokenType;
-
-
 
 typedef struct node {
 	char token[TOKEN_SIZE_LIMIT];

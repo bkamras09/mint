@@ -58,12 +58,12 @@ float factor(node **n) {
 }
 
 float term(node **n) {
-    float result = exponent(n);  // Handles exponentiation
+    float result = exponent(n);
 
     while (*n != NULL && ((*n)->token_type == MUL || (*n)->token_type == DIV)) {
         ETokenType op = (*n)->token_type;
         *n = (*n)->next;
-        float rhs = exponent(n);  // Should call exponent, not factor
+        float rhs = exponent(n);
         if (op == MUL) { result *= rhs; }
         else { result /= rhs; }
     }
@@ -71,12 +71,12 @@ float term(node **n) {
 }
 
 float expr(node **n) {
-    float result = term(n);  // Handles multiplication and division
+    float result = term(n);
 
     while (*n != NULL && ((*n)->token_type == PLUS || (*n)->token_type == MINUS)) {
         ETokenType op = (*n)->token_type;
         *n = (*n)->next;
-        float rhs = term(n);  // Should call term, not exponent
+        float rhs = term(n);
         if (op == PLUS) { result += rhs; }
         else { result -= rhs; }
     }
@@ -84,14 +84,70 @@ float expr(node **n) {
 }
 
 float exponent(node **n) {
-    float base = factor(n);  // Handles the base of the exponentiation
+    float base = factor(n);
 
     while (*n != NULL && (*n)->token_type == EXP) {
         *n = (*n)->next;
-        float exp = factor(n);  // Handles the exponent, not exponent(n)
+        float exp = factor(n);
         base = powf(base, exp);
     }
 
     return base;
 }
 
+
+/* code some weirdo on 4chan suggested
+op = lex_operator();
+end = 0;
+while (!end) {
+    while (op && is_prefix(op)) {
+        push(opstack, op);
+        op = lex_operator();
+    }
+
+    if (term = parse_term()) {
+        push(termstack, term);
+    }
+    else { return NULL; }
+
+    op = lex_operator();
+    while (op && is_postfix(op)) {
+        reduce();
+        push(opstack, op);
+        op = lex_operator();
+    }
+
+    op = lex_operator();
+    if(op && is_infix(op)) {
+        reduce();
+        push(opstack, op);
+        op = lex_operator();
+    }
+    else {
+        end = 1;
+    }
+}
+while (opstack) {
+    reduce();
+}
+
+return pop(termstack);
+
+
+op = lex_operator();
+while (op && is_postfix(op)) {
+    reduce_while_we_can(); # reduce() previously seen prefix and infix operators that have a higher precedence or same precedence and left
+    push(opstack, op);
+    reduce(op); # pop operator from opstack, pop operands (depending on arity of op) from termstack, make an AST node and push it on termstack
+    op = lex_operator();
+}
+
+if (op && is_infix(op)) {
+    reduce_while_we_can(); # calls reduce() inside
+    push(opstack, op);
+}
+else {
+    end = 1;
+}
+# + put the lex_operator() inside the while (!end) loop, at the beginning
+*/

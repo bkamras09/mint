@@ -11,8 +11,13 @@ char *type_as_string(ETokenType t) {
         case MUL: return "MUL";
         case DIV: return "DIV";
         case EXP: return "EXP";
+		case LP: return "LP";
+		case RP: return "RP";
         case DIGIT: return "DIGIT";
         case ALPHA: return "ALPHA";
+        case FN: return "FN";
+        case NUMBER: return "NUMBER";
+        case IDENTIFIER: return "IDENTIFIER";
         default:
             printf("Error getting token type.  Got: %d\n", t);
             return "ERROR";
@@ -22,6 +27,8 @@ char *type_as_string(ETokenType t) {
 ETokenType get_ETokenType(char p) {
 	if (isdigit(p)) return DIGIT;
 	if (isalpha(p)) return ALPHA;
+	//if (strcmp(&p, "fn")) return FN;
+	//if (strcmp(&p, "macro")) return MACRO;
 
 	switch(p){
 		case '+':  return PLUS;
@@ -61,7 +68,6 @@ Variable symbol_table[SYMBOL_TABLE_SIZE];
 int symbol_count = 0;
 
 void assign_variable(char *name, float value) {
-    // Look for the variable in the symbol table
     for (int i = 0; i < symbol_count; i++) {
         if (strcmp(symbol_table[i].name, name) == 0) {
             // Update the existing variable
@@ -69,7 +75,7 @@ void assign_variable(char *name, float value) {
             return;
         }
     }
-    // If not found, add a new variable to the symbol table
+    // variable wasn't found, add it to the symbol table
     strncpy(symbol_table[symbol_count].name, name, TOKEN_SIZE_LIMIT);
     symbol_table[symbol_count].value = value;
     symbol_count++;

@@ -6,50 +6,61 @@
  * FACTOR: INTEGER (will eventually include floats, doubles, etc.)
  */
 
-/* very small, reserved keywords should just be:
-    control flow:
-        LOOP
-        COND
-        BREAK
-        INFIX
-    functions and macros:
-        FN
-        MACRO
-    variable declaration:
-        VAR
-        MAP
-        STRING
-        LIST
-        ARRAY
-        STRUCT
-        UNION
-    truth:
-        T
-        F
-        NIL
-    concurrency:
-        THREAD
-        MSG
+/* small, reserved keywords should be:
+(
+	( boolean logic (
+		and
+		or
+		not))
+
+	( truth (
+		#t
+		#f
+		nil))
+
+	( iteration (
+		loop
+		each))
+
+	( branching (
+		cond
+		else
+		break))
+
+	( database (
+		where
+		in
+		join
+		delete
+		add
+		set))
+
+	( functions and macros (
+		fn
+		macro))
+
+	( variable declaration (
+		var
+		const
+		map
+		string
+		list
+		aray))
+
+	( concurrency (
+		thread
+		msg)))
+
+This is purely declarative and implies nothing about the language's idiomatic use and implicitly preferred paradigm (OOP, FP, PP, whatever)
+Maps suffice, on the surface at least, to fulfill the role of classes.
+Because functions are just references to locations in memory, passing a function as an argument parameter is allowed.
+
+Be simple and pragmatic, but respect the intelligence of the reviewer.
+Let the magic happen in the compiler.
+ 
 */
 
 /*
- * Some random ideas for a language:
- * LISP-y in syntax and flow, but with a focus on compound data types and numeric computing maybe?
- *
- * Not sure if the underlying data structure should be anything other than integers
- * Lists are useful as language constructs but are often slower than arrays
- * maps are useful but end up being slower than arrays when the map is small
- *
- * what if the guts of the language are really a database?
- *
- * option to "break out" of prefix notation and use infix for when expressions are easier to write that way
- *
- * simple and terse: t == true, f == false, nil == null list
- *
- * truthy and falsey evaluations, e.g. nil evaluates to false maybe?
- *
- * simplicity over complexity by default (NO operator overloading, NO polymorphism, NO OOP)
- *
  * loop construct kind of like in go, but:
  * (loop () )  <- goes on forever, some other construct will break the loop "while (true)"
  * (loop ( () ) ) <- check condition specified; works like while loop "while (a == b)"
@@ -78,22 +89,6 @@
  *
  * ( do-other-stuff ( a b c )
  *   (* 4 ( infix ( a ^ b + c ) ) ) )
- *
- * alias identifiers?
- * (alias ( really-long-identifier-name-goes-here tim ) )
- *
- * C is a good "portable assembler" to target
- * C++ is insane, don't even focus on it
- * Give a fast interpreter in C and eventually target LLVM IR maybe?
- *
- * Since the language is simply a markup for logic, it can do anything.
- * You can write a build system in it
- * Use it for HTML markup (and also write a k -> HTML transpiler in k)
- * You can write a database in it
- * You can write a graphics subsystem in it
- * Given the right primitives, you can interact with hardware
- * If the thing you're working on isn't a database, you're just not trying hard enough
- *
  */
 
  /* What if it wasn't LISP-y?
