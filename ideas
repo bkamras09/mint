@@ -37,7 +37,7 @@
 
 	( functions and macros (
 		fn
-		macro))
+		macro ) )
 
 	( variable declaration (
 		var
@@ -45,25 +45,42 @@
 		map
 		string
 		list
-		aray))
+		aray ) )
 
 	( concurrency (
 		thread
-		msg)))
+		msg
+		lock
+		unlock ) ) )
 
-This is purely declarative and implies nothing about the language's idiomatic use and implicitly preferred paradigm (OOP, FP, PP, whatever)
-Maps suffice, on the surface at least, to fulfill the role of classes.
-Because functions are just references to locations in memory, passing a function as an argument parameter is allowed.
+ - This is purely declarative and implies nothing about the language's
+	idiomatic use and implicitly preferred paradigm
+	(OOP, FP, PP, whatever)
+	
+ - Maps suffice, on the surface at least, to fulfill the role of
+	classes.
+	
+ - Because functions are just references to locations in memory, passing
+	a function as an argument parameter is allowed.  Still not sure how
+	to approach the FUNARG problem.
 
-Be simple and pragmatic, but respect the intelligence of the reviewer.
-Let the magic happen in the compiler.
- 
-*/
+ - Two opposing goals:
+	- Be simple and pragmatic
+	- Respect the intelligence of the reviewer.
+	
+ - An overall goal:
+	- Let the magic happen in the compiler.
 
-/*
  * loop construct kind of like in go, but:
- * (loop () )  <- goes on forever, some other construct will break the loop "while (true)"
- * (loop ( () ) ) <- check condition specified; works like while loop "while (a == b)"
+ * (loop () )  <- goes on forever, some other construct will break the
+ * equivalent to "while (true)"
+ * ( Loop ( ( ) ) ) <- check condition specified; works like while loop
+ * (loop (
+			( = ( a b ) )
+			( do-stuff ( a b c ) )
+			) )
+ * equivalent to "while (a == b)"
+ *
  * (loop (
  * 			()
  * 			()
@@ -75,15 +92,16 @@ Let the magic happen in the compiler.
  *
  * ( var x ) <- declares x as an identifier
  *
- * (var ( x 57 ) <- declares x as an identifier bound to 57
+ * ( var ( x 57 ) <- declares x as an identifier bound to 57
  *
- * (int ( x 57 ) <- declares x as an int whose value is 57
+ * ( int ( x 57 ) <- declares x as an int whose value is 57
  *
- * (int x ( 3 4 66 14 ) ) <- declares x as a list of integers
+ * ( int x ( 3 4 66 14 ) ) <- declares x as a list of integers
  *
- * (int x[] (3, 4, 66, 14)) <- declares x as an array of integers
+ * ( int x[] (3, 4, 66, 14)) <- declares x as an array of integers
+ * ( map x (a: 14 b: 34 c: "hello world" ) ) <- Declares a map.  It's just JSON.
  *
- * (macro (do-stuff x y z))
+ * ( macro ( do-stuff x y z) )
  *
  * (fn (do-other-stuff a b c))
  *
@@ -95,7 +113,7 @@ Let the magic happen in the compiler.
  *
  * Probably like mathematical notation but with go-ish touches
  *
- * fn f(a, b, c) := a + b
+ * fn f(a, b, c) = a + b
  * 		if a == b
  * 			do_stuff(a)
  * 			do_other_stuff(c)
@@ -134,3 +152,16 @@ These are the true minimum requirements for a system to be considered Turing com
 Note that there's no known way to actually build a true Turing complete system. This is because there's no known way to genuinely simulate the limitlessness of the Turing machine's tape within physical space.
 */
 
+// from the anon talking about a mathematical notation language
+That's not what I meant. I mean, if you make a specialized language with
+special syntax, say:
+
+var deriv = equation { f'(x) = 2*x**3 };
+
+and then you proceed to make tree modification with your imperative
+or FP language, or you compute values at a specified interval to make a
+graph using floats? Then in what way is the language specialized
+exactly? You can add structural pattern matching and tree
+transformations for making it good at symbolic manipulations, but what
+about precise numerical computation?
+(numerical stability and this kind of stuff)

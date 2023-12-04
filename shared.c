@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <stdio.h>
+//#include "sys/ioctl.h"
+//#include "unistd.h"
 #include "shared.h"
 
 char *type_as_string(ETokenType t) {
@@ -91,3 +93,18 @@ float get_variable_value(char *name) {
     exit(EXIT_FAILURE);
 }
 
+void print_greeting() {
+	//struct winsize w;
+	//w.ws_col
+	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+	char *title = " k REPL ";
+	printf("%s", title);
+	char *banner = "_";
+	char *flavor_text = "enter \"exit\" without quotes to exit the REPL\n";
+	int len = (strlen(flavor_text) - strlen(title)) / strlen(banner); 
+	for (int i = 0; i < len; i++) {
+		printf("%s", banner);
+	}
+	printf("]\n");
+	printf(flavor_text);
+}
