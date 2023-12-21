@@ -13,17 +13,27 @@ struct AstNode {
 typedef struct AstNode AstNode;
 
 ETokenType get_ETokenType(char p);
-char *ETokenType_as_string(char *p);
+
 AstNode *new_AstNode(char p[]);
+AstNode *new_AstNode_Operator(ETokenType type, AstNode *left, AstNode *right);
+AstNode *new_AstNode_Operand(float value);
+AstNode *get_next_AstNode(char *p);
+AstNode *expr_AstNode(node **n);
+AstNode *term_AstNode(node **n);
+AstNode *factor_AstNode(node **n);
+AstNode *exponent_AstNode(node **n);
+
 float expr(node **n);
 float term(node **n);
 float factor(node **n);
 float exponent(node **n);
+
 char *get_digits(char *p);
 char *get_alphas(char *p);
-bool eat_token(char p, ETokenType t);
 char *get_next_token(char p[]);
 char *type_as_string(ETokenType t);
-AstNode *get_next_AstNode(char *p);
+char *ETokenType_as_string(char *p);
+
+bool eat_token(char p, ETokenType t);
 
 #endif

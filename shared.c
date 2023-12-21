@@ -97,7 +97,7 @@ void print_greeting() {
 	//struct winsize w;
 	//w.ws_col
 	//ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
-	char *title = " k REPL ";
+	char *title = " mint REPL ";
 	printf("%s", title);
 	char *banner = "_";
 	char *flavor_text = "enter \"exit\" without quotes to exit the REPL\n";
@@ -106,5 +106,5 @@ void print_greeting() {
 		printf("%s", banner);
 	}
 	printf("]\n");
-	printf(flavor_text);
+	printf("%s", flavor_text);
 }
