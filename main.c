@@ -10,14 +10,17 @@ int main(void) {
 	char *current_token = input;
 	print_greeting();
 
-	for(;;) {
-		printf("> ");
-		current_token = get_line(input);
-		node *head = lex(input);
-		if (head->token_type == EXIT) { break; }
-		float result = expr(&head);
-		printf("%.6f\n", result);
-	}
+  for (;;) {
+    printf("> ");
+    current_token = get_line(input);
+    node *head = lex(input);
+    if (head->token_type == EXIT) {
+      break;
+    }
+    AstNode *result = expr_AstNode(&head);
+    float computed_result = visit(result); // Compute the result
+    printf("%.6f\n", computed_result);    // Print the result
+  }
 
 	printf("bye\n");
 

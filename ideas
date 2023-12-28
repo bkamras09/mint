@@ -6,6 +6,8 @@
  * FACTOR: INTEGER (will eventually include floats, doubles, etc.)
  */
 
+expr -> term -> exponent -> factor -> expr -> etc...
+
 /* small, reserved keywords should be:
 (
 	( boolean logic (
@@ -108,6 +110,8 @@
  * ( do-other-stuff ( a b c )
  *   (* 4 ( infix ( a ^ b + c ) ) ) )
  */
+
+
 
  /* What if it wasn't LISP-y?
  *

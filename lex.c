@@ -7,7 +7,7 @@
 #include "shared.h"
 
 char *get_digits(char *p) {
-	uint i;
+	unsigned int i;
 	char result[TOKEN_SIZE_LIMIT];
 	char *r = result;
 	for (i = 0; (isdigit(*p) || *p == '.') && i<TOKEN_SIZE_LIMIT; i++) {
@@ -19,7 +19,7 @@ char *get_digits(char *p) {
 }
 
 char *get_alphas(char *p) {
-	uint i;
+	unsigned int i;
 	char result[TOKEN_SIZE_LIMIT];
 	char *r = result;
 	while (isalpha(*p)) {
@@ -68,7 +68,7 @@ bool str_cmp(char a[], char b[]) {
 
 node *lex (char *in) {
 	remove_spaces(in);
-	uint i = 0;
+	unsigned int i = 0;
 	node *cur = make_node();
 	node *head = make_node();
 
@@ -111,14 +111,14 @@ node *lex (char *in) {
 				cur->token_type = DIGIT;
 				break;
 			case ALPHA:
-					char id[TOKEN_SIZE_LIMIT];
+					/*char id[TOKEN_SIZE_LIMIT];
 					int j = 0;
 					while (isalnum(*in) || *in == '_') {  // Variable names can include underscores
 						id[j++] = *in++;
 					}
 					id[j] = '\0';
 					strncpy(cur->token, id, TOKEN_SIZE_LIMIT);
-					cur->token_type = IDENTIFIER;
+					cur->token_type = IDENTIFIER;*/
 					break;
 			default:
 				printf("Error lexing: %d\n", *in);
