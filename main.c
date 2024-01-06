@@ -34,12 +34,12 @@ int main(void) {
 
 
                 AstNode *result = expr_AstNode(&head);
-                float computed_result = visit(result);
+                //float computed_result = visit(result);
 
-                printf("%.6f\n", computed_result);
+                //printf("%.6f\n", computed_result);
 
-                //AstNode *r = to_prefix(result);
-                //printf("\n");
+                AstNode *r = infix_to_lisp(result);
+                printf("\n");
                 while (head != NULL) {
                         head = head->next;
                         free(head);
