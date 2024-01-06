@@ -1,7 +1,6 @@
 #ifndef _SHARED_HEADER
 #define _SHARED_HEADER
-
-#define TOKEN_SIZE_LIMIT 128
+#define TOKEN_SIZE_LIMIT 32
 #define SYMBOL_TABLE_SIZE 256
 #define INPUT_SIZE_LIMIT 32768
 
@@ -11,12 +10,14 @@ typedef enum {
 
 	MOD, INT, DIGIT, ALPHA,
 
-	PLUS, MINUS, MUL, DIV, EXP,
+	PLUS, MINUS, MUL, DIV, EXP, // binary ops
+
+  NEG, POS, // unary ops
 
 	LP, RP, LB, RB,
 
 	FN, MACRO,
-	
+
 	END_OF_FILE, ERROR, UNINITIALIZED, EXIT, NUMBER, IDENTIFIER
 } ETokenType;
 
@@ -34,6 +35,7 @@ typedef struct {
 
 char *type_as_string(ETokenType t);
 char *ETokenType_as_string(char *p);
+char *ETokenType_to_string(ETokenType t);
 
 ETokenType get_ETokenType(char p);
 
