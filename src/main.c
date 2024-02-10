@@ -30,8 +30,8 @@ int main(void) {
         char input[INPUT_SIZE_LIMIT];
         char *current_token;
         print_greeting();
-
         VarMap *global_symbol_table = NULL; // Global symbol table for variable storage
+        add_default_vars(&global_symbol_table);
 
         for (;;) {
                 printf("> ");

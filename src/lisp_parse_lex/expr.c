@@ -21,7 +21,7 @@ float visit(AstNode *n, VarMap **map) {
         if (!n) { return 0.0; }
 
         if (n->type == DIGIT) { return n->value; }
-        if (n->type == IDENTIFIER) { return lookupVar(map, n->token); }
+        if (n->type == IDENTIFIER) {return lookupVar(map, n->token); }
 
         float result = visit(n->left, map);
 
@@ -51,65 +51,6 @@ float visit(AstNode *n, VarMap **map) {
         }
 
         return result;
-}
-
-AstNode *parse_let_expr(node **cursor, VarMap **map) {
-    printf("parsing let expression\n");
-    if ((*cursor)->token_type != LET) {
-        fprintf(stderr, "Error: Expected 'let' keyword\n");
-        exit(EXIT_FAILURE);
-    }
-    // Move past 'let'
-    *cursor = (*cursor)->next;
-
-    // Expecting '(' after 'let'
-    if ((*cursor)->token_type != LP) {
-        fprintf(stderr, "Error: Expected '(' after 'let'\n");
-        exit(EXIT_FAILURE);
-    }
-    *cursor = (*cursor)->next; // Move past '('
-
-    // Parse variable binding
-    if ((*cursor)->token_type != ALPHA) {
-        fprintf(stderr, "Error: Expected variable name in 'let' expression\n");
-        exit(EXIT_FAILURE);
-    }
-
-    char varName[64]; // Variable name
-    strncpy(varName, (*cursor)->token, sizeof(varName) - 1);
-    varName[sizeof(varName) - 1] = '\0';
-    *cursor = (*cursor)->next; // Move past variable name
-
-    // Parse value expression
-    AstNode *valueExpr = parse_sexpr(cursor, map); // Assuming parse_sexpr function exists for parsing expressions
-
-    // Now parse the body of the let
-    AstNode *bodyExpr = parse_sexpr(cursor, map); // Parse the body expression
-
-    // Creating LET node
-    AstNode *letNode = (AstNode *)malloc(sizeof(AstNode));
-    if (!letNode) {
-        fprintf(stderr, "Memory allocation failed for 'let' node\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Setting up the LET node
-    letNode->type = LET;
-    strncpy(letNode->token, "let", 3);
-    letNode->left = (AstNode *)malloc(sizeof(AstNode));
-    if (!letNode->left) {
-        fprintf(stderr, "Memory allocation failed for 'let' variable node\n");
-        exit(EXIT_FAILURE);
-    }
-
-    // Setting up the variable name node
-    letNode->left->type = VAR;
-    strncpy(letNode->left->token, varName, sizeof(letNode->left->token) - 1);
-    letNode->left->left = valueExpr; // Attach the value expression to the variable node
-    letNode->left->right = NULL;
-    letNode->right = bodyExpr; // The body of the let expression
-
-    return letNode;
 }
 
 AstNode *parse_define_expr(node **cursor, VarMap **map) {
@@ -224,12 +165,8 @@ AstNode *parse_atom(node **n, VarMap **map) {
                 *n = (*n)->next; // Move to the next token
                 return operand;
         } else if ((*n)->token_type == IDENTIFIER) {
-                // Look up the variable in the map
-                printf("token: %s\n", (*n)->token);
                 AstNode *operand = new_AstNode((*n)->token);
-                printf("operand: %s\n", operand->token);
                 operand->type = (*n)->token_type;
-                printVarMap(map);
                 operand->value =  lookupVar(map, operand->token);
                 *n = (*n)->next; // Move to the next token
                 return operand;

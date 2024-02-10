@@ -197,4 +197,25 @@ void freeVarMap(VarMap **map) {
     *map = NULL;
 }
 
+void add_default_vars(VarMap **map) {
+        updateVarMap(map, "pi", 3.14159);
+        updateVarMap(map, "e", 2.71828);
+        updateVarMap(map, "phi", 1.61803);
+        updateVarMap(map, "tau", 6.28318);
+        updateVarMap(map, "c", 299792458);
+        updateVarMap(map, "h", 6.62607015);
+        updateVarMap(map, "g", 9.80665);
+        updateVarMap(map, "G", 6.67430);
+        updateVarMap(map, "N", 6.02214076);
+        updateVarMap(map, "R", 8.314462618);
+        updateVarMap(map, "k", 1.380649);
+        updateVarMap(map, "sigma", 5.670374419);
+        updateVarMap(map, "epsilon", 8.8541878128);
+        updateVarMap(map, "mu", 1.2566370614);
+        updateVarMap(map, "q", 1.602176634);
+        updateVarMap(map, "m_e", 9.10938356);
+        updateVarMap(map, "m_p", 1.672621923);
+        updateVarMap(map, "m_n", 1.674927471);
+}
+
 #endif
