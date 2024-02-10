@@ -11,6 +11,7 @@ void update_node(node *c, node *n, char *i, ETokenType t);
 void remove_spaces(char* s);
 void print_list(node *n);
 void get_token(node *c, node *n, char *i, ETokenType t, unsigned int length);
+void free_all_tokens(node *n);
 
 char *get_digits(char *p);
 char *get_alphas(char *p);
@@ -90,6 +91,14 @@ void print_list(node *n) {
         while (n->next != NULL) {
                 printf("token: %s\n", n->token);
                 n = n->next;
+        }
+}
+void free_all_tokens(node *n) {
+        node *current = n;
+        while (current != NULL) {
+                current = n->next;
+                free(n);
+                n = current;
         }
 }
 #endif

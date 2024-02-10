@@ -185,4 +185,16 @@ void printVarMap(VarMap **map) {
         temp = temp->next;
     }
 }
+
+// Free the memory allocated for the map.
+void freeVarMap(VarMap **map) {
+    VarMap *temp = (*map);
+    while (temp != NULL) {
+        VarMap *next = temp->next;
+        free(temp);
+        temp = next;
+    }
+    *map = NULL;
+}
+
 #endif

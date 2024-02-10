@@ -43,12 +43,12 @@ char *ETokenType_as_string(char *p);
 char *ETokenType_to_string(ETokenType t);
 
 ETokenType get_ETokenType(char p);
-void print_all_tokens(node *head);
 
-// Function to find a variable's value in the map.
 float lookupVar(VarMap **map, const char* varName);
 
-// Function to add a new variable or update an existing one in the map.
+void print_all_tokens(node *head);
 void updateVarMap(VarMap** map, const char* varName, float value);
 void printVarMap(VarMap **map);
+void freeVarMap(VarMap **map);
+
 #endif

@@ -32,24 +32,16 @@ int main(void) {
         print_greeting();
 
         VarMap *global_symbol_table = NULL; // Global symbol table for variable storage
-        updateVarMap(&global_symbol_table, "pi", M_PI);
-        updateVarMap(&global_symbol_table, "e", M_E);
 
         for (;;) {
                 printf("> ");
                 current_token = get_line(input);
                 node *head = lex(input, &global_symbol_table);
-                
-                //print_list(head);
                 AstNode *result = parse_sexpr(&head, &global_symbol_table);
                 float computed_result = visit(result, &global_symbol_table);
                 printf("%.6f\n", computed_result);
-                //printVarMap(&global_symbol_table);
                 free(result);
-                while (head != NULL) {
-                        head = head->next;
-                        free(head);
-                }
+                free_all_tokens(head);
         }
 
         printf("bye\n");

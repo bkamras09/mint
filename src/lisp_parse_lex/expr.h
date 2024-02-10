@@ -33,6 +33,7 @@ float term(node **n);
 float factor(node **n);
 float exponent(node **n);
 float do_binop(AstNode **n);
+float visit (AstNode *n, VarMap **map);
 
 char *get_digits(char *p);
 char *get_alphas(char *p);
@@ -41,9 +42,10 @@ char *type_as_string(ETokenType t);
 char *ETokenType_as_string(char *p);
 
 bool eat_token(char p, ETokenType t);
-//float visit(AstNode *n);
-float visit (AstNode *n, VarMap **map);
+
 int isOperator(ETokenType t);
+
+void free_AstNode(AstNode *n);
 
 // DEFINITIONS
 
@@ -172,54 +174,8 @@ AstNode *expr_AstNode(node **n, VarMap *map) {
     return opNode;
 }
 
-// Function to evaluate an AST node.
-/*
-float visit(AstNode* n, VarMap* map) {
-    if (!n) { return 0.0; }
-
-    switch (n->type) {
-        case DIGIT:
-            return n->value;
-        case VAR:
-            return lookupVar(map, n->token);
-        case PLUS:
-        case MINUS:
-        case MUL:
-        case DIV:
-        case EXP: {
-            float left = visit(n->left, map);
-            float right = visit(n->right, map);
-            switch (n->type) {
-                case PLUS: return left + right;
-                case MINUS: return left - right;
-                case MUL: return left * right;
-                case DIV:
-                    if (right == 0.0) {
-                        fprintf(stderr, "Error: Division by zero\n");
-                        exit(EXIT_FAILURE);
-                    }
-                    return left / right;
-                case EXP:
-                    // Assuming powf is available or use pow for double
-                    return powf(left, right);
-                default:
-                    return 0.0; // Unreachable but keeps compiler happy
-            }
-        }
-        case LET: {
-            // Assuming LET syntax is (let (varName valueExpr) bodyExpr)
-            // You'll need to adjust parsing to accommodate this.
-            // For simplicity, this example assumes the AST for let is already constructed accordingly.
-            char varName[64];
-            strcpy(varName, n->left->token); // Variable name
-            float value = visit(n->left->right, map); // Variable value expression
-            updateVarMap(&map, varName, value);
-            return visit(n->right, map); // Evaluate the body expression with the new variable binding
-        }
-        default:
-            fprintf(stderr, "Unknown node type\n");
-            exit(EXIT_FAILURE);
-    }
+void free_environment(VarMap **map, node *head, AstNode *ast) {
+	freeVarMap(map);
+	free_AstNode(ast);
 }
-*/
 #endif
