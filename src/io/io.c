@@ -1,16 +1,15 @@
 #include "io.h"
-#include "shared.h"
 #include <stdio.h>
 char *get_line(char *s) {
 	int c, i;
 	char *ps = s;
-	for (i = 0; i<TOKEN_SIZE_LIMIT-1 && (c = getchar()) != EOF; i++) {
+	for (i = 0; i<INPUT_SIZE_LIMIT-1 && (c = getchar()) != EOF; i++) {
 		if (c == '\n') break;
 		*ps++ = c;
 	}
 	*ps = '\0';
 
-	if (i >TOKEN_SIZE_LIMIT) {
+	if (i >INPUT_SIZE_LIMIT-1) {
 		printf("ERROR: token was too large and was truncated.\n");
 	}
 

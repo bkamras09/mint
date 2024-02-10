@@ -1,3 +1,5 @@
+#ifndef SHARED
+#define SHARED
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -22,6 +24,9 @@ char *type_as_string(ETokenType t) {
         case IDENTIFIER: return "IDENTIFIER";
         case NEG: return "NEG";
         case POS: return "POS";
+        case EQ: return "EQ";
+        case LET: return "LET";
+        case DEFINE: return "DEFINE";
         default:
                 printf("Error getting token type.  Got: %d\n", t);
                 return "ERROR";
@@ -43,6 +48,7 @@ ETokenType get_ETokenType(char p) {
         case '(':  return LP;
         case ')':  return RP;
         case '&':  return AND;
+        case '=':  return EQ;
         case '{':  return LB;
         case '}':  return RB;
         case '%':  return MOD;
@@ -51,12 +57,12 @@ ETokenType get_ETokenType(char p) {
         }
 }
 
-// TODO: the two functions below are terrible.  rename them.
 char *ETokenType_as_string(char *p){
         if (isdigit(*p)) return "DIGIT";
         if (isalpha(*p)) return "ALPHA";
 
         switch(*p){
+        case ' ': return "SPACE";
         case '+':  return "PLUS";
         case '-':  return "MINUS";
         case '*':  return "MUL";
@@ -71,6 +77,7 @@ char *ETokenType_as_string(char *p){
 
 char *ETokenType_to_string(ETokenType t){
         switch(t) {
+        case SPACE: return "SPACE";
         case PLUS:
         case POS:   return "+";
         case MINUS:
@@ -126,3 +133,56 @@ void print_greeting() {
         printf("]\n");
         printf("%s", flavor_text);
 }
+
+void print_all_tokens(node *head) {
+        node *current = head;
+        while (current != NULL) {
+                printf("%s ", current->token);
+                current = current->next;
+        }
+        printf("\n");
+}
+
+// Function to find a variable's value in the map.
+float lookupVar(VarMap **map, const char* varName) {
+        VarMap *temp = (*map);
+        while (temp->next != NULL) {
+                if (strcmp(temp->varName, varName) == 0) {
+                        return temp->value;
+                }
+                temp = temp->next;
+        }
+
+        fprintf(stderr, "Variable not found: %s\n", varName);
+        exit(EXIT_FAILURE);
+}
+
+// Function to add a new variable or update an existing one in the map.
+void updateVarMap(VarMap **map, const char* varName, float value) {
+    VarMap *temp = (*map);
+    while (temp != NULL) {
+        if (strcmp(temp->varName, varName) == 0) {
+            temp->value = value;
+            return;
+        }
+        temp = temp->next;
+    }
+    // If not found, add new variable.
+    VarMap* newVar = (VarMap*)malloc(sizeof(VarMap));
+    if (!newVar) return; // Handle allocation failure gracefully.
+    strcpy(newVar->varName, varName);
+    newVar->value = value;
+    newVar->next = *map;
+    *map = newVar;
+}
+
+//print all variables in the map
+void printVarMap(VarMap **map) {
+    printf("printing var map\n");
+    VarMap *temp = (*map);
+    while (temp != NULL) {
+        printf("varName: %s, value: %f\n", temp->varName, temp->value);
+        temp = temp->next;
+    }
+}
+#endif

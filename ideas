@@ -1,12 +1,30 @@
 /*
  * Do some math!
- * Grammar:
+ * Infix Grammar:
  * EXPR: TERM ( ( PLUS | MINUS ) TERM ) *
  * TERM: FACTOR ( ( MUL | DIV ) ) TERM ) *
  * FACTOR: INTEGER (will eventually include floats, doubles, etc.)
+ * LISP grammar:
+ * EXPR: FACTOR( ( FUNCTION ) ) EXPR ) *
+ * FACTOR: (INTEGER | FLOAT | DOUBLE | VARIABLE | CONSTANT )
+ * COND: ( EXPR ( COMPARISON ) EXPR )
  */
 
 expr -> term -> exponent -> factor -> expr -> etc...
+
+Least impact principle?
+the more important something becomes in the language, the more you have to want it.
+x = 44 <- temporary variable, dies after its block (loop or cond) is concluded.
+const x = 44 <- temporary constant, dies after its block (loop or cond) is concluded
+MyArena x = 44 <- assigns x as a variable in an arena
+global x = 44 <- global variable, dies when the program dies
+
+The language is designed to be used for writing low level, high performance code,
+while also being easy to reason about and easy to write.  It is designed to be
+used for writing operating systems, device drivers, and other low level code.
+It is also designed to be used for writing high performance code, such as
+games, simulations, and other high performance code.
+
 
 /* small, reserved keywords should be:
 (
@@ -59,7 +77,7 @@ expr -> term -> exponent -> factor -> expr -> etc...
 	idiomatic use and implicitly preferred paradigm
 	(OOP, FP, PP, whatever)
 	
- - Maps suffice, on the surface at least, to fulfill the role of
+ - Maps suffice, superficially at least, to fulfill the role of
 	classes.
 	
  - Because functions are just references to locations in memory, passing

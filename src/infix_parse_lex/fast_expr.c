@@ -1,3 +1,5 @@
+// OVERVIEW: this code evaluates an expression directly without building an AST.
+
 #include "shared.h"
 #include "expr.h"
 #include "math.h"

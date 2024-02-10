@@ -1,6 +1,6 @@
 #ifndef LEXER_HEADER
 #define LEXER_HEADER
-#include "shared.h"
+#include "../shared/shared.c"
 
 node *make_node();
 node *add_node(node *n);
