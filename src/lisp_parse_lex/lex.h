@@ -3,9 +3,9 @@
 #include "../shared/shared.c"
 
 // DECLARATIONS
-node *make_node();
+node *make_node(void);
 node *add_node(node *n);
-node *lex (char *in, VarMap **map);
+node *lex(char *in);
 
 void update_node(node *c, node *n, char *i, ETokenType t);
 void remove_spaces(char* s);
@@ -41,7 +41,7 @@ char *get_alphas(char *p) {
 
         return r;
 }
-node *make_node() {
+node *make_node(void) {
         node *n = calloc(1, (sizeof(node)));
         if (!n) return NULL;
         n->prev = n->next = NULL;
@@ -71,9 +71,6 @@ void get_token(node *c, node *n, char *i, ETokenType t, unsigned int length) {
         c->next = n;
         n->prev = c;
         c = n;
-}
-void lex_keyword(char *keyword) {
-
 }
 void remove_spaces(char* s) {
         char *d = s;

@@ -6,6 +6,9 @@
 #include "lisp_parse_lex/lex.c"
 #include <math.h>
 
+// This is an X macro for the token types.
+// Eventually it will be used to dynamically generate the token type enum and the string representation of the token types.
+// However, X macros are a pain in the a$$ to get to work, so I'm leaving it for now.
 /*
 #define X(name) name,
 typedef enum {
@@ -28,15 +31,13 @@ char *TYPE_AS_STRING(ETokenType t) {
 
 int main(void) {
         char input[INPUT_SIZE_LIMIT];
-        char *current_token;
         print_greeting();
-        VarMap *global_symbol_table = NULL; // Global symbol table for variable storage
+        VarMap *global_symbol_table = NULL;
         add_default_vars(&global_symbol_table);
 
         for (;;) {
                 printf("> ");
-                current_token = get_line(input);
-                node *head = lex(input, &global_symbol_table);
+                node *head = lex(get_line(input));
                 AstNode *result = parse_sexpr(&head, &global_symbol_table);
                 float computed_result = visit(result, &global_symbol_table);
                 printf("%.6f\n", computed_result);

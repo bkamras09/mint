@@ -174,8 +174,9 @@ AstNode *expr_AstNode(node **n, VarMap *map) {
     return opNode;
 }
 
-void free_environment(VarMap **map, node *head, AstNode *ast) {
-	freeVarMap(map);
-	free_AstNode(ast);
-}
+// void free_environment(VarMap **map, node *head, AstNode *ast) {
+// 	freeVarMap(map);
+// 	free_AstNode(ast);
+// 	free_all_tokens(head);
+// }
 #endif

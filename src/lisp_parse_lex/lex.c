@@ -24,7 +24,7 @@
    DIV:
    MUL:
    EXP*/
-node *lex (char *in, VarMap **map) {
+node *lex (char *in) {
         unsigned int i = 0;
         node *cur = make_node();
         node *head = make_node();

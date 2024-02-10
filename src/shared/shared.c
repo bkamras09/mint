@@ -118,7 +118,7 @@ float get_variable_value(char *name) {
         exit(EXIT_FAILURE);
 }
 
-void print_greeting() {
+void print_greeting(void) {
         //struct winsize w;
         //w.ws_col
         //ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);

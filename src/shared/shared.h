@@ -46,9 +46,9 @@ ETokenType get_ETokenType(char p);
 
 float lookupVar(VarMap **map, const char* varName);
 
+void print_greeting(void);
 void print_all_tokens(node *head);
 void updateVarMap(VarMap** map, const char* varName, float value);
 void printVarMap(VarMap **map);
 void freeVarMap(VarMap **map);
-
 #endif
