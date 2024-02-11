@@ -25,10 +25,8 @@ float visit(AstNode *n, VarMap **map) {
 
         float result = visit(n->left, map);
 
-        // a DEFINE doesn't have a right child of the left child
-        if (n->type == DEFINE) {
-            return 0.0;
-        }
+        if (n->type == DEFINE) { return 0.0; } // DEFINE doesn't evaluate to a value
+
         AstNode *rightOperand = n->left->right;
 
         while (rightOperand) {
@@ -58,8 +56,7 @@ AstNode *parse_define_expr(node **cursor, VarMap **map) {
         fprintf(stderr, "Error: Expected 'define' keyword\n");
         exit(EXIT_FAILURE);
     }
-    // Move past 'define'
-    *cursor = (*cursor)->next;
+    *cursor = (*cursor)->next; // Move past the 'define' token
 
     // Expecting variable name
     if ((*cursor)->token_type != IDENTIFIER) {
@@ -88,7 +85,6 @@ AstNode *parse_define_expr(node **cursor, VarMap **map) {
         exit(EXIT_FAILURE);
     }
 
-    // Check if valueExpr was successfully created or assigned
     if (!valueExpr) {
         fprintf(stderr, "Error: Failed to parse value expression in 'define'\n");
         exit(EXIT_FAILURE);
@@ -109,7 +105,7 @@ AstNode *parse_define_expr(node **cursor, VarMap **map) {
         exit(EXIT_FAILURE);
     }
     defineNode->type = DEFINE;
-    strncpy(defineNode->token, "define", sizeof(defineNode->token) - 1);
+    strncpy(defineNode->token, "def", sizeof(defineNode->token) - 1);
     defineNode->left = NULL; // No left child
     defineNode->right = NULL; // No right child
 
@@ -125,19 +121,15 @@ AstNode *parse_sexpr(node **n, VarMap **map) {
         }
         *n = (*n)->next; // Move past the '(' token
         
-        if ((*n)->token_type == DEFINE) {
-            // meant to evaluate "define" expressions of the form ( define IDENTIFIER EXPR )
-            return parse_define_expr(n, map);
-        } else if (!(*n) || !isOperator((*n)->token_type)) {
+        if ((*n)->token_type == DEFINE) { return parse_define_expr(n, map); }
+        else if (!(*n) || !isOperator((*n)->token_type)) {
                 fprintf(stderr, "Error: Expected operator after '('\n");
                 exit(EXIT_FAILURE);
         }
 
         AstNode *opNode = new_AstNode((*n)->token);
         *n = (*n)->next; // Move past the operator
-
-        // First operand
-        opNode->left = parse_atom(n, map);
+        opNode->left = parse_atom(n, map); // Parse the first operand
 
         // Chain additional operands
         AstNode *currentOperand = opNode->left;
