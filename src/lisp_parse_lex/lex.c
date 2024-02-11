@@ -65,7 +65,7 @@ node *lex (char *in) {
                         if (str_cmp(in, "let")) {
                                 get_token(cur, n, in, LET, 3);
                                 in += 3;
-                        } else if (str_cmp(in, "def")) {
+                        } else if (str_cmp(in, "define")) {
                                 get_token(cur, n, in, DEFINE, 6);
                                 in += 6;
                         } else {
