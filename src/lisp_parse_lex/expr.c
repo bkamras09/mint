@@ -95,10 +95,13 @@ AstNode *parse_define_expr(node **cursor, VarMap **map) {
     float value = visit(valueExpr, map); // Ensure this function returns the evaluated value
     updateVarMap(map, varName, value);
 
-    // Since 'define' does not evaluate to a value in traditional Lisp,
-    // you might return NULL or a special node indicating a successful definition.
-    // This part depends on how you want to handle 'define' statements in your AST.
-    // For now, let's return a placeholder node to indicate success without evaluation.
+    // Since 'define' does not evaluate to a value in traditional isp,
+    // I just return the node here and don't give it any children.
+    // When this node is visited, it simply returns 0.
+    // In the future, the visit function will return nodes instead of floats,
+    // and another function will decide how to interpret the node's payload
+    // e.g., a define will return an empty string since it's purpose is to
+    // alter memory rather than evaluate soemthing.
     AstNode *defineNode = (AstNode *)malloc(sizeof(AstNode));
     if (!defineNode) {
         fprintf(stderr, "Memory allocation failed for 'define' node\n");
