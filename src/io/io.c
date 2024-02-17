@@ -1,6 +1,10 @@
-#include "io.h"
 #include <stdio.h>
-char *get_line(char *s) {
+#include "io.h"
+#include "../shared/shared.h"
+
+char
+*get_line(char *s)
+{
 	int c, i;
 	char *ps = s;
 	for (i = 0; i<INPUT_SIZE_LIMIT-1 && (c = getchar()) != EOF; i++) {

@@ -1,9 +1,11 @@
 /* OVERVIEW: a baby programming language. */
 
-#include "lisp_parse_lex/expr.c"
 #include "io/io.c"
 #include "shared/shared.c"
-#include "lisp_parse_lex/lex.c"
+#include "lisp/parse/parse_sexpr.c"
+#include "lisp/parse/visit.c"
+#include "lisp/lex/lex.c"
+#include "lisp/lex/free_all_tokens.c"
 #include <math.h>
 
 // This is an X macro for the token types.

@@ -33,30 +33,6 @@ char *type_as_string(ETokenType t) {
         }
 }
 
-ETokenType get_ETokenType(char p) {
-        if (isdigit(p)) return DIGIT;
-        if (isalpha(p)) return ALPHA;
-        //if (strcmp(&p, "fn")) return FN;
-        //if (strcmp(&p, "macro")) return MACRO;
-
-        switch(p){
-        case '+':  return PLUS;
-        case '-':  return MINUS;
-        case '*':  return MUL;
-        case '/':  return DIV;
-        case '^':  return EXP;
-        case '(':  return LP;
-        case ')':  return RP;
-        case '&':  return AND;
-        case '=':  return EQ;
-        case '{':  return LB;
-        case '}':  return RB;
-        case '%':  return MOD;
-        case '\0': return END_OF_FILE;
-        default:   return ERROR;
-        }
-}
-
 char *ETokenType_as_string(char *p){
         if (isdigit(*p)) return "DIGIT";
         if (isalpha(*p)) return "ALPHA";
@@ -144,7 +120,7 @@ void print_all_tokens(node *head) {
 }
 
 // Function to find a variable's value in the map.
-float lookupVar(VarMap **map, const char* varName) {
+float lookup_var(VarMap **map, const char* varName) {
         VarMap *temp = (*map);
         while (temp->next != NULL) {
                 if (strcmp(temp->varName, varName) == 0) {
@@ -158,7 +134,7 @@ float lookupVar(VarMap **map, const char* varName) {
 }
 
 // Function to add a new variable or update an existing one in the map.
-void updateVarMap(VarMap **map, const char* varName, float value) {
+void update_var_map(VarMap **map, const char* varName, float value) {
     VarMap *temp = (*map);
     while (temp != NULL) {
         if (strcmp(temp->varName, varName) == 0) {
@@ -187,7 +163,7 @@ void printVarMap(VarMap **map) {
 }
 
 // Free the memory allocated for the map.
-void freeVarMap(VarMap **map) {
+void free_var_map(VarMap **map) {
     VarMap *temp = (*map);
     while (temp != NULL) {
         VarMap *next = temp->next;
@@ -198,24 +174,24 @@ void freeVarMap(VarMap **map) {
 }
 
 void add_default_vars(VarMap **map) {
-        updateVarMap(map, "pi", 3.14159);
-        updateVarMap(map, "e", 2.71828);
-        updateVarMap(map, "phi", 1.61803);
-        updateVarMap(map, "tau", 6.28318);
-        updateVarMap(map, "c", 299792458);
-        updateVarMap(map, "h", 6.62607015);
-        updateVarMap(map, "g", 9.80665);
-        updateVarMap(map, "G", 6.67430);
-        updateVarMap(map, "N", 6.02214076);
-        updateVarMap(map, "R", 8.314462618);
-        updateVarMap(map, "k", 1.380649);
-        updateVarMap(map, "sigma", 5.670374419);
-        updateVarMap(map, "epsilon", 8.8541878128);
-        updateVarMap(map, "mu", 1.2566370614);
-        updateVarMap(map, "q", 1.602176634);
-        updateVarMap(map, "m_e", 9.10938356);
-        updateVarMap(map, "m_p", 1.672621923);
-        updateVarMap(map, "m_n", 1.674927471);
+        update_var_map(map, "pi", 3.14159);
+        update_var_map(map, "e", 2.71828);
+        update_var_map(map, "phi", 1.61803);
+        update_var_map(map, "tau", 6.28318);
+        update_var_map(map, "c", 299792458);
+        update_var_map(map, "h", 6.62607015);
+        update_var_map(map, "g", 9.80665);
+        update_var_map(map, "G", 6.67430);
+        update_var_map(map, "N", 6.02214076);
+        update_var_map(map, "R", 8.314462618);
+        update_var_map(map, "k", 1.380649);
+        update_var_map(map, "sigma", 5.670374419);
+        update_var_map(map, "epsilon", 8.8541878128);
+        update_var_map(map, "mu", 1.2566370614);
+        update_var_map(map, "q", 1.602176634);
+        update_var_map(map, "m_e", 9.10938356);
+        update_var_map(map, "m_p", 1.672621923);
+        update_var_map(map, "m_n", 1.674927471);
 }
 
 #endif

@@ -44,11 +44,11 @@ char *ETokenType_to_string(ETokenType t);
 
 ETokenType get_ETokenType(char p);
 
-float lookupVar(VarMap **map, const char* varName);
+float lookup_var(VarMap **map, const char* varName);
 
 void print_greeting(void);
 void print_all_tokens(node *head);
-void updateVarMap(VarMap** map, const char* varName, float value);
-void printVarMap(VarMap **map);
-void freeVarMap(VarMap **map);
+void update_var_map(VarMap** map, const char* varName, float value);
+void print_var_map(VarMap **map);
+void free_var_vap(VarMap **map);
 #endif

@@ -7,6 +7,12 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include "lex.h"
+#include "add_node.c"
+#include "update_node.c"
+#include "get_token.c"
+#include "str_cmp.c"
+#include "../../shared/get_ETokenType.c"
+#include "make_node.c"
 
 /* The lexer is a fairly simple finite discrete automata.
    Whitespace is insignificant in infix notation, but significant in lisp style notation.
