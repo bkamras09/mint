@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "../lex/get_digits.c"
+#include "../../shared/type_as_string.c"
 #include "../../shared/shared.h"
 #include "parse.h"
 
